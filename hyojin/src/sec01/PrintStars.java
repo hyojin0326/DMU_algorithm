@@ -28,11 +28,11 @@ public class PrintStars {
 		 */
 		
 		for(int i=0;i<n/w;i++) {
-			System.out.println("*".repeat(w));
+			//System.out.println("*".repeat(w));
 		}
 		int rest = n%w;
 		if(rest != 0) {
-			System.out.println("*".repeat(rest));
+			//System.out.println("*".repeat(rest));
 		}
 	}
 
