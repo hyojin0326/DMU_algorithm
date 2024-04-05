@@ -3,12 +3,14 @@ package sec05;
 import java.util.Scanner;
 
 public class Recur {
-	//정수 x,y의 최대공약수를 구하여 반환: 유클리드 호제법
-		static int recur(int n) {
-			if(n>0)
-				return x;
-			else
-				return gcd(y,x%y);
+
+		static void recur(int n) {
+			//순수재귀 메서드
+			if(n>0) {
+				recur(n-1);
+				System.out.println(n);
+				recur(n-2);
+			}
 		}
 		public static void main(String[] args) {
 			// TODO Auto-generated method stub
