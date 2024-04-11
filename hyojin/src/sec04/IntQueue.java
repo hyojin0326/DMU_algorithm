@@ -7,94 +7,94 @@ public class IntQueue {
 	private int rear;
 	private int num;
 
-	// ½ÇÇà½Ã ¿¹¿Ü: Å¥°¡ ºñ¾îÀÖÀ½
+	// ì‹¤í–‰ì‹œ ì˜ˆì™¸: íê°€ ë¹„ì–´ìžˆìŒ
 	public class EmptyIntQueueException extends RuntimeException {
 		public EmptyIntQueueException() {
 		}
 	}
 
-	// ½ÇÇà½Ã ¿¹¿Ü: Å¥°¡ °¡µæ Âü
+	// ì‹¤í–‰ì‹œ ì˜ˆì™¸: íê°€ ê°€ë“ ì°¸
 	public class OverflowIntQueueException extends RuntimeException {
 		public OverflowIntQueueException() {
 		}
 	}
 
-	// »ý¼ºÀÚ: Å¥ º»Ã¼¿ë ¹è¿­À»»ý¼ºÇÏ´Â µîÀÇ ÁØºñ ÀÛ¾÷ ¼öÇà
+	// ìƒì„±ìž: í ë³¸ì²´ìš© ë°°ì—´ì„ìƒì„±í•˜ëŠ” ë“±ì˜ ì¤€ë¹„ ìž‘ì—… ìˆ˜í–‰
 	public IntQueue(int maxlen) {
-		num = front = rear = 0; // 0À¸·Î ÃÊ±âÈ­
+		num = front = rear = 0; // 0ìœ¼ë¡œ ì´ˆê¸°í™”
 		capacity = maxlen;
 		try {
-			que = new int[capacity]; // ±æÀÌ°¡ capacityÀÎ Å¥ º»Ã¼¿ë ¹è¿­ »ý¼º
+			que = new int[capacity]; // ê¸¸ì´ê°€ capacityì¸ í ë³¸ì²´ìš© ë°°ì—´ ìƒì„±
 		} catch (OutOfMemoryError e) {
 			capacity = 0;
 		}
 	}
 
-	// Äí¿¡ µ¥ÀÌÅÍ ÀÎÅ¥
+	// ì¿ ì— ë°ì´í„° ì¸í
 	public int enque(int x) throws OverflowIntQueueException {
-		if (num >= capacity) // Å¥°¡ °¡µæÂü
+		if (num >= capacity) // íê°€ ê°€ë“ì°¸
 			throw new OverflowIntQueueException();
 		que[rear++] = x;
-		num++; // µ¥ÀÌÅÍ ÀÎÅ¥ÇÏ°í rear¿Í num °ªÀ» Áõ°¡½ÃÅ°¸é ÀÎÅ¥ ÀÛ¾÷ ³¡
+		num++; // ë°ì´í„° ì¸íí•˜ê³  rearì™€ num ê°’ì„ ì¦ê°€ì‹œí‚¤ë©´ ì¸í ìž‘ì—… ë
 
-		// ÀÎÅ¥ÇÏ±â Àü rear°ªÀÌ ¹è¿­ Å©±âº¸´Ù 1ÀÛÀ» °æ¿ì ->ÀÎÅ¥ ¸Þ¼­µå¸¦ ¼öÇàÇÑ ÈÄ
-		// rear°ªÀÌ ¹è¿­Å©±â¿Í °°¾ÆÁö¸é¼­ ¹è¿­ÀÇ ¸¶Áö¸· ÀÎµ¦½º¸¦ ÃÊ°ú
-		// ÀÌ·¯ÇÑ ÀÌÀ¯·Î rear°ªÀÌ capacity¿Í °°¾ÆÁö´Â °ÍÀ» ¹æÁöÇÏ±â À§ÇØ rearÀÇ °ªÀ» 1 Áõ°¡½ÃÄ×À»¶§
-		// rear¸¦ ¹è¿­ÀÇ Ã¹¹øÂ° ¿ä¼ÒÀÎ 0À¸·Î º¯°æ
+		// ì¸íí•˜ê¸° ì „ rearê°’ì´ ë°°ì—´ í¬ê¸°ë³´ë‹¤ 1ìž‘ì„ ê²½ìš° ->ì¸í ë©”ì„œë“œë¥¼ ìˆ˜í–‰í•œ í›„
+		// rearê°’ì´ ë°°ì—´í¬ê¸°ì™€ ê°™ì•„ì§€ë©´ì„œ ë°°ì—´ì˜ ë§ˆì§€ë§‰ ì¸ë±ìŠ¤ë¥¼ ì´ˆê³¼
+		// ì´ëŸ¬í•œ ì´ìœ ë¡œ rearê°’ì´ capacityì™€ ê°™ì•„ì§€ëŠ” ê²ƒì„ ë°©ì§€í•˜ê¸° ìœ„í•´ rearì˜ ê°’ì„ 1 ì¦ê°€ì‹œì¼°ì„ë•Œ
+		// rearë¥¼ ë°°ì—´ì˜ ì²«ë²ˆì§¸ ìš”ì†Œì¸ 0ìœ¼ë¡œ ë³€ê²½
 		if (rear == capacity)
 			rear = 0;
 		return x;
 	}
 
-	// Å¥¿¡¼­ µ¥ÀÌÅÍ µðÅ¥
+	// íì—ì„œ ë°ì´í„° ë””í
 	public int deque() throws EmptyIntQueueException {
 		if (num <= 0)
 			throw new EmptyIntQueueException();
 		int x = que[front++];
-		num--; // µ¥ÀÌÅÍ µðÅ¥ÈÄ front°ªÀ» 1Áõ°¡, num1°¨¼Ò
+		num--; // ë°ì´í„° ë””íí›„ frontê°’ì„ 1ì¦ê°€, num1ê°ì†Œ
 
-		// ¸¸¾à frontÀÇ °ªÀÌ Å¥ÀÇ ¿ë·®ÀÎ capacity¿Í °°¾ÆÁö¸é front°ªÀ» ¹è¿­ÀÇ ¸Ç ¾Õ ÀÎµ¦½ºÀÎ 0À¸·Î º¯°æÇÑ´Ù.
+		// ë§Œì•½ frontì˜ ê°’ì´ íì˜ ìš©ëŸ‰ì¸ capacityì™€ ê°™ì•„ì§€ë©´ frontê°’ì„ ë°°ì—´ì˜ ë§¨ ì•ž ì¸ë±ìŠ¤ì¸ 0ìœ¼ë¡œ ë³€ê²½í•œë‹¤.
 		if (front == capacity)
 			front = 0;
 		return x;
 	}
 
-	// Å¥¿¡¼­ µ¥ÀÌÅÍ ÇÇÅ©
+	// íì—ì„œ ë°ì´í„° í”¼í¬
 	public int peek() throws EmptyIntQueueException {
 		if (num <= 0)
 			throw new EmptyIntQueueException();
 		return que[front];
 	}
 
-	// Å¥¸¦ ºñ¿î´Ù
+	// íë¥¼ ë¹„ìš´ë‹¤
 	public void clear() {
-		num = front = rear = 0; // ÃÊ±âÈ­
+		num = front = rear = 0; // ì´ˆê¸°í™”
 	}
 
-	// Å¥¿¡¼­ x¸¦ °Ë»öÇÏ¸é ÀÎµ¦½º ¹ÝÈ¯, ½ÇÆÐ½Ã -1
+	// íì—ì„œ xë¥¼ ê²€ìƒ‰í•˜ë©´ ì¸ë±ìŠ¤ ë°˜í™˜, ì‹¤íŒ¨ì‹œ -1
 	public int indexOf(int x) {
 		for (int i = 0; i < num; i++) {
-			int idx = (i + front) % capacity; // ½ºÄµÀº ¹è¿­ÀÇ ¹°¸®ÀûÀÎ Ã¹ ¿ä¼Ò°¡ ¾Æ´Ï¶ó Å¥ÀÇ ³í¸®ÀûÀÎ Ã¹ ¿ä¼Ò±â ¶§¹®¿¡ º¹ÀâÇÑ °è»ê½Ä ÇÊ¿ä
+			int idx = (i + front) % capacity; // ìŠ¤ìº”ì€ ë°°ì—´ì˜ ë¬¼ë¦¬ì ì¸ ì²« ìš”ì†Œê°€ ì•„ë‹ˆë¼ íì˜ ë…¼ë¦¬ì ì¸ ì²« ìš”ì†Œê¸° ë•Œë¬¸ì— ë³µìž¡í•œ ê³„ì‚°ì‹ í•„ìš”
 			if (que[idx] == x)
 				return idx;
 		}
 		return -1;
 	}
 
-	// Å¥¿¡ ½×¿©ÀÖ´Â µ¥ÀÌÅÍ¼ö ¹ÝÈ¯
+	// íì— ìŒ“ì—¬ìžˆëŠ” ë°ì´í„°ìˆ˜ ë°˜í™˜
 	public int size() {
 		return num;
 	}
 
-	// ½ºÅÃ ¿ë·®(Å©±â)¸¦ ¹ÝÈ¯
+	// ìŠ¤íƒ ìš©ëŸ‰(í¬ê¸°)ë¥¼ ë°˜í™˜
 	public int getCapacity() {
 		return capacity;
 	}
 
-	// Å¥ ¾ÈÀÇ ¸ðµç µ¥ÀÌÅÍ¸¦ front¿¡¼­ rear¼øÀ¸·Î Ãâ·Â
+	// í ì•ˆì˜ ëª¨ë“  ë°ì´í„°ë¥¼ frontì—ì„œ rearìˆœìœ¼ë¡œ ì¶œë ¥
 	public void dump() {
 		if (num <= 0)
-			System.out.println("Å¥°¡ ºñ¾îÀÖ´Ù.");
+			System.out.println("íê°€ ë¹„ì–´ìžˆë‹¤.");
 		else {
 			for (int i = 0; i < num; i++) {
 				System.out.print(que[(i + front) % capacity] + " ");

@@ -2,57 +2,70 @@ package task;
 
 import java.util.Scanner;
 
+//ì›í•˜ëŠ” ê°’ì°¾ê¸° ì„±ê³µ
+//ê²€ìƒ‰ì‹¤íŒ¨ ì„±ê³µ
 public class BinSearch {
-	// Å°°ªÀ» ÀÌ¿ëÇØ ÀÌÁø°Ë»ö ±¸Çö
-	static int Find(int arr[],int n, int key) {
-		int pl = 0; // °Ë»ö ¹üÀ§ ¸Ç¾Õ ÀÎµ¦½º
-		int pr = n-1; //°Ë»ö ¹üÀ§ ¸ÇµÚ ÀÎµ¦½º
-		int pc = (pl+pr)/2;
-		while(pl<=pr) {
-			if(arr[pc]>key) {
-				pr = (pl+pr)/2-1; //¹üÀ§ Á¼Èû
-			}
-			else if(arr[pc]<key)
-				pl = (pl+pr)/2+1; //¹üÀ§ Á¼Èû
-			else
-				for(arr[pc]= key; pc>pl; pc--) {
-					if(arr[pc-1]<n)
-						break;
-				}
-				return (pl+pr)/2;
-		}
-		return -1; //°Ë»ö ½ÇÆĞ
+	
+	//ê²€ìƒ‰í•  í‚¤ ê°’ê³¼ ê°™ì€ ê°’ì„ ê°–ëŠ” ìš”ì†Œê°€ í•˜ë‚˜ ì´ìƒì¼ ê²½ìš°, ê·¸ ìš”ì†Œì¤‘ ë§¨ ì•ì˜ ìš”ì†Œë¥¼ êµ¬í•˜ë¼
+	static int binsearch(int value, int[]arr,int num) {
+		int pl=0;
+		int pr= arr.length;
 		
+		do {
+			//ê°€ìš´ë° ì¸ë±ìŠ¤ê°’ êµ¬í•˜ê¸°
+			int pc = (pl+pr)/2;
+			//ì›í•˜ëŠ” ê°’ì„ ì°¾ì€ê²½ìš° ë§¨ì• ìš”ì†Œë¥¼ ê²€ìƒ‰
+			if(arr[pc]==value){
+				for(;;) {
+					if(arr[pc-1] != value)
+						break;
+					pc--;
+				}
+				return pc; //ê²€ìƒ‰ ì„±ê³µ
+			}
+			else if(arr[pc]<value) {
+				pl = pc+1; //ê²€ìƒ‰ ë²”ìœ„ë¥¼ ì¤„ì„
+			}
+			else if(arr[pc]>value) {
+				pr=pc-1;
+			}
+		} while(pl<pr);
+		return -1; //ê²€ìƒ‰ ì‹¤íŒ¨
 	}
+	
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
 		
-		//¹è¿­ÀÇ ±æÀÌ¿Í ¹è¿­°ª(¿À¸§Â÷¼ø) À¸·Î ÀÔ·Â¹ŞÀ½
-		System.out.print("¿ä¼Ú¼ö : ");
+		System.out.print("ìš”ì†Ÿìˆ˜ : ");
 		int num = sc.nextInt();
 		
-		int arr[] = new int[num];
+		//í•´ë‹¹ ìš”ì†Ÿìˆ˜ë¥¼ ê°–ëŠ” ë°°ì—´ ìƒì„±
+		int []arr = new int[num];
+		
+		//ë°°ì—´ ê°’ ì…ë ¥ ë°›ê¸°
+		System.out.println("ë°°ì—´ì„ ì…ë ¥í•˜ì„¸ìš”");
 		System.out.print("arr[0]: ");
 		arr[0] = sc.nextInt();
 		
-		for(int i=1;i<num;i++) {
+		for(int i=1;i<num; i++) {
+			//ì˜¤ë¦„ì°¨ìˆœìœ¼ë¡œ ì…ë ¥í•˜ì§€ì•Šìœ¼ë©´ ë‹¤ì‹œ ë°˜ë³µ
 			do {
-				System.out.printf("arr[%d]: ", i);
+				System.out.print("arr["+i+"] : ");
 				arr[i] = sc.nextInt();
-			}while(arr[i] < arr[i-1]);
+			} while(arr[i]<arr[i-1]);
 		}
 		
-		System.out.print("°Ë»öÇÒ Å°°ª: ");
-		int key = sc.nextInt();
-		int value = Find(arr,num,key);
-		if(value !=-1) {
-			System.out.println(value);
+		System.out.print("ì°¾ìœ¼ë ¤ëŠ” ê°’ì„ ì…ë ¥í•˜ì„¸ìš”: ");
+		int value = sc.nextInt();
+		
+		//numê¸¸ì´ì˜ arrë°°ì—´ì— valueê°’ì„ ê°€ì§€ê³  ìˆëŠ” ì¸ë±ìŠ¤ ì°¾ê¸°
+		int idx = binsearch(value, arr, num);
+		if(idx ==-1) {
+			System.out.println("ì°¾ìœ¼ë ¤ëŠ” ê°’ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 		}
 		else
-			System.out.println("Á¸ÀçÇÏÁö ¾Ê´Â °ªÀÔ´Ï´Ù.");
-		
-		
+			System.out.println("ì°¾ìœ¼ë ¤ëŠ” ê°’ì˜ ìœ„ì¹˜ëŠ” arr["+idx+"] ì…ë‹ˆë‹¤.");
 	}
-
+	
 }

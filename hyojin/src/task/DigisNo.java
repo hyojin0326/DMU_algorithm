@@ -3,24 +3,24 @@ package task;
 import java.util.Scanner;
 
 public class DigisNo {
+	// ì–‘ì˜ ì •ìˆ˜ë¥¼ ì…ë ¥í•˜ê³  ìë¦¿ìˆ˜ë¥¼ ì¶œë ¥í•˜ëŠ” í”„ë¡œê·¸ë¨ì„ ì‘ì„±í•˜ì„¸ìš”.
+	static int digisNo(int n) {
+		int count = 0;
+		for (int i = n; i > 0; i /= 10) {
+			count++;
+		}
+		return count;
+	}
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
-		System.out.println("¾çÀÇ Á¤¼ö°ªÀÇ ÀÚ¸´¼ö¸¦ ±¸ÇÕ´Ï´Ù.");
-		int n;
-		do {
-			System.out.print("Á¤¼ö°ª: ");
-			n = sc.nextInt();
-		}while(n<=0);
-		
-		int no=0; //ÀÚ¸´¼ö
-		while(n>0) {
-			n/=10;
-			no++;
-		}
-		System.out.println("±× ¼ö´Â "+ no+"ÀÚ¸®ÀÔ´Ï´Ù.");
-		
+		System.out.println("ì–‘ì˜ ì •ìˆ˜ê°’ì˜ ìë¦¿ìˆ˜ë¥¼ êµ¬í•©ë‹ˆë‹¤.");
+		System.out.print("ì •ìˆ˜ê°’ : ");
+
+		int num = sc.nextInt();
+
+		System.out.println("ê·¸ ìˆ˜ëŠ” " + digisNo(num) + "ìë¦¬ì…ë‹ˆë‹¤.");
 	}
 
 }
