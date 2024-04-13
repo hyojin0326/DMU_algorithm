@@ -9,14 +9,15 @@ public class BinSearch {
 	//검색할 키 값과 같은 값을 갖는 요소가 하나 이상일 경우, 그 요소중 맨 앞의 요소를 구하라
 	static int binsearch(int value, int[]arr,int num) {
 		int pl=0;
-		int pr= arr.length;
+		int pr= arr.length-1;
 		
 		do {
 			//가운데 인덱스값 구하기
 			int pc = (pl+pr)/2;
 			//원하는 값을 찾은경우 맨앞 요소를 검색
 			if(arr[pc]==value){
-				for(;;) {
+				//무한루프로 하면 찾는 값이 맨앞의 요소일때 오류
+				for(;pc>0;) {
 					if(arr[pc-1] != value)
 						break;
 					pc--;
@@ -29,7 +30,7 @@ public class BinSearch {
 			else if(arr[pc]>value) {
 				pr=pc-1;
 			}
-		} while(pl<pr);
+		} while(pl<=pr);
 		return -1; //검색 실패
 	}
 	
